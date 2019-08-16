@@ -1,1 +1,10 @@
-{"entityDefs": [{"name": "Table", "superTypes": ["DataSet"]}]}
+{  
+   "entityDefs":[  
+      {  
+         "name":"Table",
+         "superTypes":[  
+            "DataSet"
+         ]
+      }
+   ]
+}
