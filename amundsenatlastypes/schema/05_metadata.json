@@ -1,10 +1,7 @@
 {
-  "classificationDefs": [],
-  "enumDefs": [],
   "structDefs": [
     {
-      "name": "col_stat",
-      "typeVersion": "2.0",
+      "name": "StatisticsEntry",
       "attributeDefs": [
         {
           "name": "stat_name",
@@ -39,7 +36,35 @@
           "isIndexable": false
         }
       ]
-    }],
-  "entityDefs" : [],
-  "relationshipDefs": []
+    }
+  ],
+  "entityDefs": [
+    {
+      "superTypes": [
+        "Referenceable"
+      ],
+      "name": "Metadata",
+      "description": "The metadata information of the Entity.",
+      "typeVersion": "2.0",
+      "attributeDefs": [
+        {
+          "name": "popularityScore",
+          "typeName": "float",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "isUnique": false,
+          "isIndexable": true
+        },
+        {
+          "name": "statistics",
+          "typeName": "array<StatisticsEntry>",
+          "isOptional": true,
+          "cardinality": "LIST",
+          "isUnique": false,
+          "isIndexable": true,
+          "includeInNotification": false
+        }
+      ]
+    }
+  ]
 }

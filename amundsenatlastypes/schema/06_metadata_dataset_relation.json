@@ -1,0 +1,25 @@
+{
+  "relationshipDefs": [
+    {
+      "name": "DataSet_Metadata",
+      "typeVersion": "2.0",
+      "relationshipCategory": "COMPOSITION",
+      "relationshipLabel": "_DataSet.Metadata",
+      "endDef1": {
+        "type": "DataSet",
+        "name": "metadata",
+        "isContainer": true,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "endDef2": {
+        "type": "Metadata",
+        "name": "parentEntity",
+        "isContainer": false,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "propagateTags": "NONE"
+    }
+  ]
+}
