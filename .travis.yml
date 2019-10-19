@@ -6,14 +6,17 @@ install:
 - pip3 install --upgrade pip
 - pip3 install -r requirements.txt
 script:
-- mypy --ignore-missing-imports --follow-imports=skip --strict-optional --warn-no-return amundsenatlastypes
+- mypy --ignore-missing-imports --follow-imports=skip --strict-optional --warn-no-return
+  amundsenatlastypes
 deploy:
 - provider: pypi
   user: verdan
   password:
-    secure: nKtCI1pEc5uWHW7j3U1f7+WpPXk6qe8uBzgkgwbeekT3LZfK230SMerJnKmQJxl6KZUgSFr+ZbospEwrB25BD4vUal1gCGy+CHqNkWIA/ypFQRuOZN3guR5f9QldprEN4s20IFFs+ehzcXLXe1DCl67p/Yke9TyS1x1jKSJadwCfUgQXtM4XcRvyLXAdWzhJGijvtJxEcyOEBOycdLLwQ2nZHclZaVq7xnWdOoKio4YBLwiRZbBp1IYxyP1+hWj3Berq5QLD6IrrC3b4I7BEoxOncbIFyBXI7KfmmPIg6h41+98u79Ghal7iS0rsJiflaB28ao9bH+kO3+GwHPCn1ASVWzNq+W/xRNg8pCuVS8icuWgUbfaYKrD/K/VvcjTKvrCxJPH7Sw4XmaVTl3SDrr2SQi+1B7bhO5h16fD7RcWmB0kcxXJYW41NRXwVrgCXOngGdy/F1Jv00Vxl39uL9eXeIHaNMuikVfml1I32Kie2Cjyk6emT4O7Zu/zmSQnVHNF/OBI34qUZeyV9gv5g5r+JBd2Nki9omiJ8DT9TDdLB8NP8hKbGIuVRg0QZbnBfXSZczE6PNlM5s1TSPAMG769190Nyh1AeA9Bg+Qv4QKMexaoYbvkkjTHzZ+3xt/yvbrkM4Q9h+nNAE77VDU7Dao3dummtmSarlU73cmrti3A=
+    secure: AqBoryZFcmWxGbi6Va949LuBdSL02k5ITwdvUIHWH81Sps3zYlwePPCzBUVgATYH5WUdDYOuXlBkEva3fLlaC8GTMFxwm2Ax5VWNFoH1zaMVOCTyvfCeIKcbMmRc9wkRle9E0ZLffGKwIF+HFkhnJUxG2goMp0C1qu6LPL0E8TYr85O1Vr1IXMcPKnyKc1CMy0aZ16qGN5joBsOlfcJRM9NQCa1m9DTNAeaX5IeeS+jxlysGjnfYj64uZQj1ot6BJHY0J8iuYg1c9QYwhPvgNy4K0T65qcteEg9Z1qdY2zSuLP0Wq1BSIZ/LYdtLI0ukUew1q3XcrRLfgiF+LlLFMJn2N+oxVeV4gv06XJdwwQuTD+IVMecYkH1/piA9cyw1xcdQBHVAUCgPryGSmMvF2+YlGpYl+JZMEIKIGkbNEOpVXkkBnfnUiaFyfjvDg76Mt8SF4r53cAu7iDb+7dC5leLKw+b1NfpoShrtppzUt+U+ZrdPxCawKzZwLpykXWa6kKngJfj7bcSU1kT0d/D0Azl59aMDSVr3RntO2xXK11GxRkI1nagDLVQtBjumNMKt9+zMM0gI0q3+aSeM2u2gbDrreSMnQvTJcMRhLJOXiZ52aTmapuAo8i7LkfUNjRSV2WFrm5P9USHIxOs+jYfivvroed9PxNv0Jg41fxMtTa8=
   distributions: sdist bdist_wheel
   skip_existing: true
+  skip_cleanup: true
+  server:
   on:
     tags: true
     repo: dwarszawski/amundsen-atlas-types
