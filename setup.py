@@ -11,6 +11,11 @@ sys.path.insert(0, here)
 with open(os.path.join(here, 'README.md')) as readme_file:
     readme = readme_file.read()
 
+
+requirements_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'requirements.txt')
+with open(requirements_path) as requirements_file:
+    requirements = requirements_file.readlines()
+
 setup_args = dict(
     name='amundsenatlastypes',
     version=__version__,
@@ -22,9 +27,7 @@ setup_args = dict(
     url='https://github.com/dwarszawski/amundsen-atlas-types',
     packages=find_packages(include=['amundsenatlastypes']),
     include_package_data=True,
-    install_requires=[
-        'pyatlasclient',
-    ],
+    install_requires=requirements,
     license='Apache Software License 2.0',
     zip_safe=False,
     keywords='apache atlas, atlas types, amundsen, amundsen atlas',

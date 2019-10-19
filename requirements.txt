@@ -1,0 +1,3 @@
+pyatlasclient
+flake8
+mypy

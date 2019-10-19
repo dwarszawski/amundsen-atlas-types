@@ -2,6 +2,11 @@ language: python
 python:
 - '3.6'
 - '3.5'
+install:
+- pip3 install --upgrade pip
+- pip3 install -r requirements.txt
+script:
+- mypy --ignore-missing-imports --follow-imports=skip --strict-optional --warn-no-return amundsenatlastypes
 deploy:
 - provider: pypi
   user: verdan
