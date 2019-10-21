@@ -88,6 +88,7 @@ class Initializer:
         :return: Creates or Updates the entity definition in Apache Atlas
         """
         self.create_table_schema()
+        self.assign_table_subtypes()
         self.create_user_schema()
         self.create_reader_schema()
         self.create_user_reader_relation()
