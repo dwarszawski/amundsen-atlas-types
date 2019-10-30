@@ -21,6 +21,7 @@ setup_args = dict(
     version=__version__,
     description=('Custom Amundsen Atlas data types definition'),
     long_description=readme,
+    long_description_content_type="text/markdown",
     author="Damian Warszawski",
     maintainer="Verdan Mahmood",
     maintainer_email='verdan.mahmood@gmail.com',
