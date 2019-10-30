@@ -1,20 +1,30 @@
 {
+  "entityDefs": [
+    {
+      "superTypes": [
+        "Metadata"
+      ],
+      "name": "table_metadata",
+      "description": "The metadata information for Table entities.",
+      "typeVersion": "2.0"
+    }
+  ],
   "relationshipDefs": [
     {
-      "name": "DataSet_Metadata",
+      "name": "Table__table_metadata",
       "typeVersion": "2.0",
       "relationshipCategory": "COMPOSITION",
-      "relationshipLabel": "_DataSet.Metadata",
+      "relationshipLabel": "_Table.table_metadata",
       "endDef1": {
-        "type": "DataSet",
+        "type": "Table",
         "name": "metadata",
         "isContainer": true,
         "cardinality": "SINGLE",
         "isLegacyAttribute": true
       },
       "endDef2": {
-        "type": "Metadata",
-        "name": "parentEntity",
+        "type": "table_metadata",
+        "name": "table",
         "isContainer": false,
         "cardinality": "SINGLE",
         "isLegacyAttribute": true

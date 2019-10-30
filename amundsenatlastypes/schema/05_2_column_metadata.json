@@ -1,0 +1,35 @@
+{
+  "entityDefs": [
+    {
+      "superTypes": [
+        "Metadata"
+      ],
+      "name": "column_metadata",
+      "description": "The metadata information for Column entities.",
+      "typeVersion": "2.0"
+    }
+  ],
+  "relationshipDefs": [
+    {
+      "name": "Column__column_metadata",
+      "typeVersion": "2.0",
+      "relationshipCategory": "COMPOSITION",
+      "relationshipLabel": "_Column.column_metadata",
+      "endDef1": {
+        "type": "Column",
+        "name": "metadata",
+        "isContainer": true,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "endDef2": {
+        "type": "column_metadata",
+        "name": "column",
+        "isContainer": false,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "propagateTags": "NONE"
+    }
+  ]
+}
