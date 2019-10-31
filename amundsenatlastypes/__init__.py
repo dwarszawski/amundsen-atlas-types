@@ -5,6 +5,7 @@ import os
 from atlasclient.client import Atlas
 # noinspection PyPackageRequirements
 from atlasclient.exceptions import Conflict
+from requests import ReadTimeout
 
 from .types import *
 
@@ -43,7 +44,7 @@ class Initializer:
         self.driver.typedefs.update(data=typedef_dict)
         print(f'Assignment of "{super_type}" Entity to existing "{ends_with}" entities Completed.\n')
 
-    def create_or_update(self, typedef_dict, info):
+    def create_or_update(self, typedef_dict, info, attempt=1):
         try:
             print(f"Trying to create {info} Entity")
             self.driver.typedefs.create(data=typedef_dict)
@@ -51,6 +52,14 @@ class Initializer:
             print("Exception: {0}".format(str(ex)))
             print(f"Already Exists, updating {info} Entity")
             self.driver.typedefs.update(data=typedef_dict)
+        except ReadTimeout as ex:
+            # Sometimes on local atlas instance you do get ReadTimeout a lot.
+            # This will try to apply definition 3 times and then cancel
+            if attempt < 4:
+                print("ReadTimeout - Another Try: {0}".format(str(ex)))
+                self.create_or_update(typedef_dict, info, attempt + 1)
+            else:
+                print("ReadTimeout Exception - Cancelling Operation: {0}".format(str(ex)))
         finally:
             print(f"Applied {info} Entity Definition")
             print(f"\n----------")
