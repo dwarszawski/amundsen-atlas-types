@@ -5,7 +5,7 @@ import os
 from atlasclient.client import Atlas
 # noinspection PyPackageRequirements
 from atlasclient.exceptions import Conflict
-from requests import ReadTimeout
+from requests import Timeout
 
 from .types import *
 
@@ -52,7 +52,7 @@ class Initializer:
             print("Exception: {0}".format(str(ex)))
             print(f"Already Exists, updating {info} Entity")
             self.driver.typedefs.update(data=typedef_dict)
-        except ReadTimeout as ex:
+        except Timeout as ex:
             # Sometimes on local atlas instance you do get ReadTimeout a lot.
             # This will try to apply definition 3 times and then cancel
             if attempt < 4:
