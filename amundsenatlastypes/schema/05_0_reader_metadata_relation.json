@@ -1,0 +1,35 @@
+{
+  "entityDefs": [
+    {
+      "superTypes": [
+        "Metadata"
+      ],
+      "name": "table_metadata",
+      "description": "The metadata information for Table entities.",
+      "typeVersion": "2.0"
+    }
+  ],
+  "relationshipDefs": [
+    {
+      "name": "Metadata_Reader",
+      "typeVersion": "2.0",
+      "relationshipCategory": "COMPOSITION",
+      "relationshipLabel": "__Metadata.Reader",
+                "endDef1": {
+                    "type": "Metadata",
+                    "name": "readers",
+                    "isContainer": true,
+                    "cardinality": "SET",
+                    "isLegacyAttribute": false
+                },
+                "endDef2": {
+                    "type": "Reader",
+                    "name": "entityMetadata",
+                    "isContainer": false,
+                    "cardinality": "SINGLE",
+                    "isLegacyAttribute": true
+                },
+      "propagateTags": "NONE"
+    }
+  ]
+}

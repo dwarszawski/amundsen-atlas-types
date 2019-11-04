@@ -16,15 +16,6 @@
           "typeName": "int",
           "cardinality": "SINGLE",
           "valuesMinCount": 0
-        },
-        {
-          "name": "isFollowing",
-          "isOptional": false,
-          "isUnique": false,
-          "isIndexable": true,
-          "typeName": "boolean",
-          "cardinality": "SINGLE",
-          "valuesMinCount": 0
         }
       ]
     }

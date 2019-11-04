@@ -3,6 +3,7 @@ import os
 
 # noinspection PyPackageRequirements
 from atlasclient.client import Atlas
+from atlasclient.utils import parse_table_qualified_name
 # noinspection PyPackageRequirements
 from atlasclient.exceptions import Conflict
 from requests import Timeout
@@ -15,12 +16,14 @@ class AtlasClient:
     port = os.environ.get('ATLAS_PORT', 21000)
     user = os.environ.get('ATLAS_USERNAME', 'admin')
     password = os.environ.get('ATLAS_PASSWORD', 'admin')
+    timeout = os.environ.get('ATLAS_REQUEST_TIMEOUT', 10)
 
     def driver(self):
         return Atlas(host=self.host,
                      port=self.port,
                      username=self.user,
-                     password=self.password)
+                     password=self.password,
+                     timeout=self.timeout)
 
 
 # noinspection PyMethodMayBeStatic
@@ -48,10 +51,14 @@ class Initializer:
         try:
             print(f"Trying to create {info} Entity")
             self.driver.typedefs.create(data=typedef_dict)
-        except Conflict as ex:
-            print("Exception: {0}".format(str(ex)))
+
+        except Conflict:
             print(f"Already Exists, updating {info} Entity")
-            self.driver.typedefs.update(data=typedef_dict)
+            try:
+                self.driver.typedefs.update(data=typedef_dict)
+            except Exception as ex:
+                print("Something wrong happened: {0}".format(str(ex)))
+
         except Timeout as ex:
             # Sometimes on local atlas instance you do get ReadTimeout a lot.
             # This will try to apply definition 3 times and then cancel
@@ -60,6 +67,8 @@ class Initializer:
                 self.create_or_update(typedef_dict, info, attempt + 1)
             else:
                 print("ReadTimeout Exception - Cancelling Operation: {0}".format(str(ex)))
+        except Exception as ex:
+            print("Something wrong happened: {0}".format(str(ex)))
         finally:
             print(f"Applied {info} Entity Definition")
             print(f"\n----------")
@@ -89,13 +98,66 @@ class Initializer:
     def create_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(metadata_schema), "Metadata")
 
+    def create_reader_metadata_relation(self):
+        self.create_or_update(self.get_schema_dict(reader_metadata_relation), "Reader <-> Metadata")
+
     def create_table_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(table_metadata_schema), "Table Metadata")
 
     def create_column_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
 
-    def create_required_entities(self):
+    # noinspection PyMethodMayBeStatic
+    def create_metadata(self, table_entity):
+        """
+        database.table.metadata@cluster
+        """
+        table_qn = table_entity.attributes.get("qualifiedName")
+        table_info = parse_table_qualified_name(table_qn)
+        table_guid = table_entity.guid
+
+        metadata_qn = f'{table_info["db_name"]}.{table_info["table_name"]}.metadata@{table_info["cluster_name"]}'
+        metadata_guid = table_guid * 999
+
+        metadata_entity = {'typeName': 'table_metadata',
+                           'guid': metadata_guid,
+                           'attributes': {'qualifiedName': metadata_qn,
+                                          'popularityScore': 0,
+                                          'table': {'guid': table_guid}}
+                           }
+
+        return metadata_entity
+
+    def fix_existing_data(self):
+        limit = 50
+        offset = 0
+        results = True
+        count_query = {'query': "from Table where  __state = 'ACTIVE' select count()"}
+        count_results = list(self.driver.search_dsl(**count_query))[0]
+        count_value = count_results._data['attributes']['values'][0][0]
+
+        while results:
+            params = {'typeName': 'Table',
+                      'attributes': ['metadata'],
+                      'limit': limit,
+                      'offset': offset
+                      }
+            search_results = self.driver.search_basic.create(data=params)
+
+            entities_to_create = list()
+            for entity in search_results.entities:
+                if not entity.attributes.get("metadata"):
+                    entities_to_create.append(self.create_metadata(entity))
+
+            if entities_to_create:
+                self.driver.entity_bulk.create(data={"entities": entities_to_create})
+
+            if count_value > 0 and offset <= count_value:
+                offset += 50
+            else:
+                results = False
+
+    def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
         Please keep this order.
@@ -109,5 +171,9 @@ class Initializer:
         self.create_reader_schema()
         self.create_user_reader_relation()
         self.create_metadata_schema()
+        self.create_reader_metadata_relation()
         self.create_table_metadata_schema()
         self.create_column_metadata_schema()
+
+        if fix_existing_data:
+            self.fix_existing_data()
