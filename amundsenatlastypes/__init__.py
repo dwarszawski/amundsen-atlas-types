@@ -5,7 +5,7 @@ import os
 from atlasclient.client import Atlas
 from atlasclient.utils import parse_table_qualified_name
 # noinspection PyPackageRequirements
-from atlasclient.exceptions import Conflict
+from atlasclient.exceptions import Conflict, HttpError
 from requests import Timeout
 
 from .types import *
@@ -57,7 +57,7 @@ class Initializer:
             try:
                 self.driver.typedefs.update(data=typedef_dict)
             except Exception as ex:
-                print("Something wrong happened: {0}".format(str(ex)))
+                raise HttpError(message="Something wrong happened: {0}".format(str(ex)))
 
         except Timeout as ex:
             # Sometimes on local atlas instance you do get ReadTimeout a lot.
@@ -68,7 +68,7 @@ class Initializer:
             else:
                 print("ReadTimeout Exception - Cancelling Operation: {0}".format(str(ex)))
         except Exception as ex:
-            print("Something wrong happened: {0}".format(str(ex)))
+            raise HttpError(message="Something wrong happened: {0}".format(str(ex)))
         finally:
             print(f"Applied {info} Entity Definition")
             print(f"\n----------")
@@ -128,7 +128,7 @@ class Initializer:
 
         return metadata_entity
 
-    def fix_existing_data(self):
+    def initiate_existing_data(self):
         limit = 50
         offset = 0
         results = True
@@ -176,4 +176,4 @@ class Initializer:
         self.create_column_metadata_schema()
 
         if fix_existing_data:
-            self.fix_existing_data()
+            self.initiate_existing_data()
