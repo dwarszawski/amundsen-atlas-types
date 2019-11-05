@@ -39,6 +39,17 @@ init = Initializer()
 init.create_required_entities()
 ```
 
+There also is a functionality to initiate your existing data to work accordingly with Amundsen. 
+To create required relations you need to set `fix_existing_data=True` while calling the `create_required_entities()`.
+
+```python
+from amundsenatlastypes import Initializer
+    
+init = Initializer()
+init.create_required_entities(fix_existing_data=True)
+```
+
+
 #### Functionality:
 `amundsenatlastypes` provides a number of functions that can be used separately to 
 implement/apply entity definitions of Apache Atlas, which are available [here](/amundsenatlastypes/__init__.py).

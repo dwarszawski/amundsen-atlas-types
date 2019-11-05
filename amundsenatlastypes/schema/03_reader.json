@@ -19,7 +19,7 @@
         },
         {
           "name": "isFollowing",
-          "isOptional": false,
+          "isOptional": true,
           "isUnique": false,
           "isIndexable": true,
           "typeName": "boolean",
