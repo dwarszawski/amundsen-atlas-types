@@ -25,6 +25,15 @@
           "typeName": "boolean",
           "cardinality": "SINGLE",
           "valuesMinCount": 0
+        },
+        {
+          "name": "entityUri",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": true,
+          "typeName": "string",
+          "cardinality": "SINGLE",
+          "valuesMinCount": 0
         }
       ]
     }
