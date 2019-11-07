@@ -57,7 +57,8 @@ class Initializer:
             try:
                 self.driver.typedefs.update(data=typedef_dict)
             except Exception as ex:
-                raise HttpError(message="Something wrong happened: {0}".format(str(ex)))
+                # This is a corner case, for Atlas Sample Data
+                print(f"Something wrong happened: {str(ex)}")
 
         except Timeout as ex:
             # Sometimes on local atlas instance you do get ReadTimeout a lot.
@@ -68,7 +69,7 @@ class Initializer:
             else:
                 print("ReadTimeout Exception - Cancelling Operation: {0}".format(str(ex)))
         except Exception as ex:
-            raise HttpError(message="Something wrong happened: {0}".format(str(ex)))
+            print(f"Something wrong happened: {str(ex)}")
         finally:
             print(f"Applied {info} Entity Definition")
             print(f"\n----------")
@@ -117,10 +118,8 @@ class Initializer:
         table_guid = table_entity.guid
 
         metadata_qn = f'{table_info["db_name"]}.{table_info["table_name"]}.metadata@{table_info["cluster_name"]}'
-        metadata_guid = table_guid * 999
 
         metadata_entity = {'typeName': 'table_metadata',
-                           'guid': metadata_guid,
                            'attributes': {'qualifiedName': metadata_qn,
                                           'popularityScore': 0,
                                           'table': {'guid': table_guid}}
