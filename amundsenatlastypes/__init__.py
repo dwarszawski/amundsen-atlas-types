@@ -1,29 +1,12 @@
 import json
-import os
 
 # noinspection PyPackageRequirements
-from atlasclient.client import Atlas
-from atlasclient.utils import parse_table_qualified_name
-# noinspection PyPackageRequirements
-from atlasclient.exceptions import Conflict, HttpError
+from atlasclient.exceptions import Conflict
 from requests import Timeout
 
+from amundsenatlastypes.client import driver
+from .kickstart import KickstartExistingData
 from .types import *
-
-
-class AtlasClient:
-    host = os.environ.get('ATLAS_HOST', 'localhost')
-    port = os.environ.get('ATLAS_PORT', 21000)
-    user = os.environ.get('ATLAS_USERNAME', 'admin')
-    password = os.environ.get('ATLAS_PASSWORD', 'admin')
-    timeout = os.environ.get('ATLAS_REQUEST_TIMEOUT', 10)
-
-    def driver(self):
-        return Atlas(host=self.host,
-                     port=self.port,
-                     username=self.user,
-                     password=self.password,
-                     timeout=self.timeout)
 
 
 # noinspection PyMethodMayBeStatic
@@ -31,7 +14,7 @@ class Initializer:
     def assign_subtypes(self, ends_with="_table", super_type="Table"):
         print(f'\nAssigning {super_type} entity to all the subtypes entity definitions')
         entities_to_update = []
-        for t in self.driver.typedefs:
+        for t in driver.typedefs:
             for e in t.entityDefs:
                 if e.name.endswith(ends_with):  # Assign new entity to all the tables in atlas
                     print(f'Assigning {e.name} as a subtype of {super_type}')
@@ -44,18 +27,18 @@ class Initializer:
         typedef_dict = {
             "entityDefs": entities_to_update
         }
-        self.driver.typedefs.update(data=typedef_dict)
+        driver.typedefs.update(data=typedef_dict)
         print(f'Assignment of "{super_type}" Entity to existing "{ends_with}" entities Completed.\n')
 
     def create_or_update(self, typedef_dict, info, attempt=1):
         try:
             print(f"Trying to create {info} Entity")
-            self.driver.typedefs.create(data=typedef_dict)
+            driver.typedefs.create(data=typedef_dict)
 
         except Conflict:
             print(f"Already Exists, updating {info} Entity")
             try:
-                self.driver.typedefs.update(data=typedef_dict)
+                driver.typedefs.update(data=typedef_dict)
             except Exception as ex:
                 # This is a corner case, for Atlas Sample Data
                 print(f"Something wrong happened: {str(ex)}")
@@ -73,10 +56,6 @@ class Initializer:
         finally:
             print(f"Applied {info} Entity Definition")
             print(f"\n----------")
-
-    @property
-    def driver(self):
-        return AtlasClient().driver()
 
     def get_schema_dict(self, schema):
         return json.loads(schema)
@@ -108,54 +87,6 @@ class Initializer:
     def create_column_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
 
-    # noinspection PyMethodMayBeStatic
-    def create_metadata(self, table_entity):
-        """
-        database.table.metadata@cluster
-        """
-        table_qn = table_entity.attributes.get("qualifiedName")
-        table_info = parse_table_qualified_name(table_qn)
-        table_guid = table_entity.guid
-
-        metadata_qn = f'{table_info["db_name"]}.{table_info["table_name"]}.metadata@{table_info["cluster_name"]}'
-
-        metadata_entity = {'typeName': 'table_metadata',
-                           'attributes': {'qualifiedName': metadata_qn,
-                                          'popularityScore': 0,
-                                          'table': {'guid': table_guid}}
-                           }
-
-        return metadata_entity
-
-    def initiate_existing_data(self):
-        limit = 50
-        offset = 0
-        results = True
-        count_query = {'query': "from Table where  __state = 'ACTIVE' select count()"}
-        count_results = list(self.driver.search_dsl(**count_query))[0]
-        count_value = count_results._data['attributes']['values'][0][0]
-
-        while results:
-            params = {'typeName': 'Table',
-                      'attributes': ['metadata'],
-                      'limit': limit,
-                      'offset': offset
-                      }
-            search_results = self.driver.search_basic.create(data=params)
-
-            entities_to_create = list()
-            for entity in search_results.entities:
-                if not entity.attributes.get("metadata"):
-                    entities_to_create.append(self.create_metadata(entity))
-
-            if entities_to_create:
-                self.driver.entity_bulk.create(data={"entities": entities_to_create})
-
-            if count_value > 0 and offset <= count_value:
-                offset += 50
-            else:
-                results = False
-
     def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
@@ -175,4 +106,7 @@ class Initializer:
         self.create_column_metadata_schema()
 
         if fix_existing_data:
-            self.initiate_existing_data()
+
+            # noinspection PyShadowingNames,SpellCheckingInspection
+            kickstart = KickstartExistingData()
+            kickstart.initiate_existing_data()
