@@ -13,8 +13,9 @@ class KickstartExistingData:
         try:
             driver.entity_bulk.create(data={"entities": entities_to_create})
         except Timeout as ex:
+            # Try one more time in case of Timeout error!!
             print(f'ReadTimeout : {ex}')
-            self.create_entities(entities_to_create)
+            driver.entity_bulk.create(data={"entities": entities_to_create})
 
     # TODO: To be moved to pyatlasclient package
     # noinspection PyMethodMayBeStatic
