@@ -1,7 +1,7 @@
 import re
 
 from atlasclient.utils import parse_table_qualified_name
-from requests import ReadTimeout
+from requests import Timeout
 
 from amundsenatlastypes.client import driver
 
@@ -12,7 +12,7 @@ class KickstartExistingData:
     def create_entities(self, entities_to_create):
         try:
             driver.entity_bulk.create(data={"entities": entities_to_create})
-        except ReadTimeout as ex:
+        except Timeout as ex:
             print(f'ReadTimeout : {ex}')
             self.create_entities(entities_to_create)
 
