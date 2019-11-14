@@ -87,6 +87,9 @@ class Initializer:
     def create_column_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
 
+    def create_partition_schema(self):
+        self.create_or_update(self.get_schema_dict(partition_schema), "Partition Entity")
+
     def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
@@ -104,6 +107,7 @@ class Initializer:
         self.create_reader_metadata_relation()
         self.create_table_metadata_schema()
         self.create_column_metadata_schema()
+        self.create_partition_schema()
 
         if fix_existing_data:
 
