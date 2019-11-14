@@ -1,12 +1,21 @@
 import re
 
 from atlasclient.utils import parse_table_qualified_name
+from requests import Timeout
 
 from amundsenatlastypes.client import driver
 
 
 # noinspection SpellCheckingInspection
 class KickstartExistingData:
+
+    def create_entities(self, entities_to_create):
+        try:
+            driver.entity_bulk.create(data={"entities": entities_to_create})
+        except Timeout as ex:
+            # Try one more time in case of Timeout error!!
+            print(f'ReadTimeout : {ex}')
+            driver.entity_bulk.create(data={"entities": entities_to_create})
 
     # TODO: To be moved to pyatlasclient package
     # noinspection PyMethodMayBeStatic
@@ -19,11 +28,30 @@ class KickstartExistingData:
             return column_qn_regex.match(name)
 
         _regex_result = apply_qn_regex(qualified_name, qn_regex)
+
+        if not _regex_result:
+            qn_regex = re.compile(r"""
+            ^(?P<table_name>.*?)\.(?P<column_name>.*)@(?P<cluster_name>.*?)$
+            """, re.X)
+            _regex_result = apply_qn_regex(qualified_name, qn_regex)
+
+        if not _regex_result:
+            qn_regex = re.compile(r"""
+            ^(?P<column_name>.*)@(?P<cluster_name>.*?)$
+            """, re.X)
+            _regex_result = apply_qn_regex(qualified_name, qn_regex)
+
+        if not _regex_result:
+            qn_regex = re.compile(r"""
+            ^(?P<column_name>.*)$
+            """, re.X)
+            _regex_result = apply_qn_regex(qualified_name, qn_regex)
+
         _regex_result = _regex_result.groupdict()
 
         qn_dict = {
-            'table_name': _regex_result.get('table_name', qualified_name),
             'column_name': _regex_result.get('column_name', qualified_name),
+            'table_name': _regex_result.get('table_name', "default"),
             'db_name': _regex_result.get('db_name', "default"),
             'cluster_name': _regex_result.get('cluster_name', "default"),
         }
@@ -67,12 +95,12 @@ class KickstartExistingData:
             entities_to_create = list()
             for entity in search_results.entities:
                 meta_guid = entity.attributes.get("metadata", {}).get("guid")
-                meta_entity = search_results.referredEntities.get(meta_guid) or dict()
+                meta_entity = search_results.referredEntities and search_results.referredEntities.get(meta_guid)
                 if not meta_guid or (meta_guid and meta_entity.get("status") != "ACTIVE"):
                     entities_to_create.append(self.get_column_metadata(entity))
 
             if entities_to_create:
-                driver.entity_bulk.create(data={"entities": entities_to_create})
+                self.create_entities(entities_to_create)
 
             if count_value > 0 and offset <= count_value:
                 offset += 50
@@ -117,12 +145,12 @@ class KickstartExistingData:
             entities_to_create = list()
             for entity in search_results.entities:
                 meta_guid = entity.attributes.get("metadata", {}).get("guid")
-                meta_entity = search_results.referredEntities.get(meta_guid) or dict()
+                meta_entity = search_results.referredEntities and search_results.referredEntities.get(meta_guid)
                 if not meta_guid or (meta_guid and meta_entity.get("status") != "ACTIVE"):
                     entities_to_create.append(self.get_table_metadata(entity))
 
             if entities_to_create:
-                driver.entity_bulk.create(data={"entities": entities_to_create})
+                self.create_entities(entities_to_create)
 
             if count_value > 0 and offset <= count_value:
                 offset += 50
