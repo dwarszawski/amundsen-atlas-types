@@ -89,6 +89,7 @@ class Initializer:
 
     def create_partition_schema(self):
         self.create_or_update(self.get_schema_dict(partition_schema), "Partition Entity")
+        self.create_or_update(self.get_schema_dict(hive_table_partition_schema),"Hive Table Partition")
 
     def create_required_entities(self, fix_existing_data=False):
         """
