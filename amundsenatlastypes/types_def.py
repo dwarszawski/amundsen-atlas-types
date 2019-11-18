@@ -15,4 +15,5 @@ reader_metadata_relation = get_schema("schema/05_0_reader_metadata_relation.json
 table_metadata_schema = get_schema("schema/05_1_table_metadata.json")
 column_metadata_schema = get_schema("schema/05_2_column_metadata.json")
 partition_schema = get_schema("schema/06_partition_schema.json")
-hive_table_partition_schema = get_schema("schema/06_1_hive_table_partition.json")
+hive_table_partition = get_schema("schema/06_1_hive_table_partition.json")
+partition_column_metadata = get_schema("schema/06_2_partition_column_metadata.json")

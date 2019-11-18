@@ -16,14 +16,14 @@
       "relationshipCategory": "COMPOSITION",
       "relationshipLabel": "_hive_table.hive_table_partition",
       "endDef1": {
-        "type": "Table",
-        "name": "metadata",
+        "type": "hive_table",
+        "name": "partitions",
         "isContainer": true,
-        "cardinality": "SINGLE",
+        "cardinality": "SET",
         "isLegacyAttribute": true
       },
       "endDef2": {
-        "type": "table_metadata",
+        "type": "hive_table_partition",
         "name": "table",
         "isContainer": false,
         "cardinality": "SINGLE",
