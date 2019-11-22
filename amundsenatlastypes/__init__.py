@@ -87,8 +87,8 @@ class Initializer:
     def create_column_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
 
-    def create_partition_schema(self):
-        self.create_or_update(self.get_schema_dict(partition_schema), "Partition")
+    def create_table_partition_schema(self):
+        self.create_or_update(self.get_schema_dict(table_partition_schema), "Partition")
 
     def create_hive_table_partition(self):
         self.create_or_update(self.get_schema_dict(hive_table_partition), "Hive Table Partition")
@@ -113,7 +113,7 @@ class Initializer:
         self.create_reader_metadata_relation()
         self.create_table_metadata_schema()
         self.create_column_metadata_schema()
-        self.create_partition_schema()
+        self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_partition_column_metadata()
 

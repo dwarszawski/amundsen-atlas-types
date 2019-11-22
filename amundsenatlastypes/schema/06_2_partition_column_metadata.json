@@ -37,7 +37,7 @@
       "relationshipCategory": "COMPOSITION",
       "relationshipLabel": "_Partition.partition_column_metadata",
       "endDef1": {
-        "type": "Partition",
+        "type": "TablePartition",
         "name": "metadata",
         "isContainer": true,
         "cardinality": "SET",

@@ -2,7 +2,7 @@
   "entityDefs": [
     {
       "superTypes": [
-        "Partition"
+        "TablePartition"
       ],
       "name": "hive_table_partition",
       "description": "Table partition for hive table. ",
