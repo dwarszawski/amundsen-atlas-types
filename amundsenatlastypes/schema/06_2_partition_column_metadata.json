@@ -38,7 +38,7 @@
       "relationshipLabel": "_Partition.partition_column_metadata",
       "endDef1": {
         "type": "TablePartition",
-        "name": "metadata",
+        "name": "columnsMetadata",
         "isContainer": true,
         "cardinality": "SET",
         "isLegacyAttribute": true
