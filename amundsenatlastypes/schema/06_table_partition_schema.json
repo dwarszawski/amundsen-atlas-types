@@ -1,0 +1,10 @@
+{
+  "entityDefs": [
+    {
+      "name": "TablePartition",
+      "superTypes": [
+        "DataSet"
+      ]
+    }
+  ]
+}

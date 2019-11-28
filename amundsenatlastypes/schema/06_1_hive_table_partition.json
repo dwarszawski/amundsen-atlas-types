@@ -1,0 +1,35 @@
+{
+  "entityDefs": [
+    {
+      "superTypes": [
+        "TablePartition"
+      ],
+      "name": "hive_table_partition",
+      "description": "Table partition for hive table. ",
+      "typeVersion": "2.0"
+    }
+  ],
+  "relationshipDefs": [
+    {
+      "name": "hive_table__hive_table_partition",
+      "typeVersion": "2.0",
+      "relationshipCategory": "COMPOSITION",
+      "relationshipLabel": "_hive_table.hive_table_partition",
+      "endDef1": {
+        "type": "hive_table",
+        "name": "partitions",
+        "isContainer": true,
+        "cardinality": "SET",
+        "isLegacyAttribute": true
+      },
+      "endDef2": {
+        "type": "hive_table_partition",
+        "name": "table",
+        "isContainer": false,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "propagateTags": "NONE"
+    }
+  ]
+}

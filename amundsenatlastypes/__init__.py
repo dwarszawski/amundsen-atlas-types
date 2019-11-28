@@ -6,7 +6,7 @@ from requests import Timeout
 
 from amundsenatlastypes.client import driver
 from .kickstart import KickstartExistingData
-from .types import *
+from .types_def import *
 
 
 # noinspection PyMethodMayBeStatic
@@ -87,6 +87,15 @@ class Initializer:
     def create_column_metadata_schema(self):
         self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
 
+    def create_table_partition_schema(self):
+        self.create_or_update(self.get_schema_dict(table_partition_schema), "Partition")
+
+    def create_hive_table_partition(self):
+        self.create_or_update(self.get_schema_dict(hive_table_partition), "Hive Table Partition")
+
+    def create_partition_column_metadata(self):
+        self.create_or_update(self.get_schema_dict(partition_column_metadata), "Partition Column Metadata")
+
     def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
@@ -104,6 +113,9 @@ class Initializer:
         self.create_reader_metadata_relation()
         self.create_table_metadata_schema()
         self.create_column_metadata_schema()
+        self.create_table_partition_schema()
+        self.create_hive_table_partition()
+        self.create_partition_column_metadata()
 
         if fix_existing_data:
 
