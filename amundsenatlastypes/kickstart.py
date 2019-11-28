@@ -87,6 +87,7 @@ class KickstartExistingData:
         while results:
             params = {'typeName': 'Column',
                       'attributes': ['metadata'],
+                      'excludeDeletedEntities': True,
                       'limit': limit,
                       'offset': offset
                       }
@@ -138,6 +139,7 @@ class KickstartExistingData:
             params = {'typeName': 'Table',
                       'attributes': ['metadata'],
                       'limit': limit,
+                      'excludeDeletedEntities': True,
                       'offset': offset
                       }
             search_results = driver.search_basic.create(data=params)
