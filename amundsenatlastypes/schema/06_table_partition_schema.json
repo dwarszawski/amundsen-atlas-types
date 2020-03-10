@@ -3,7 +3,7 @@
     {
       "name": "TablePartition",
       "superTypes": [
-        "DataSet"
+        "Table"
       ]
     }
   ]
