@@ -1,4 +1,4 @@
-__version__ = '0.0.13'
+__version__ = '1.0.0-SNAPSHOT-v1'
 
 import os
 import sys
