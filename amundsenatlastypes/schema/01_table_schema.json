@@ -4,6 +4,17 @@
       "name": "Table",
       "superTypes": [
         "DataSet"
+      ],
+      "attributeDefs": [
+        {
+          "name": "popularityScore",
+          "typeName": "float",
+          "isOptional": true,
+          "cardinality": "SINGLE",
+          "isUnique": false,
+          "isIndexable": true,
+          "defaultValue": "0.0"
+        }
       ]
     }
   ]
