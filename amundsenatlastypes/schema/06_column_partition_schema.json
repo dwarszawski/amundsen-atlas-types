@@ -2,34 +2,11 @@
   "entityDefs": [
     {
       "superTypes": [
-        "Column"
+        "hive_column"
       ],
       "name": "hive_column_partition",
       "description": "Column for hive table partition.",
       "typeVersion": "2.0"
-    }
-  ],
-  "relationshipDefs": [
-    {
-      "name": "hive_column__hive_column_partition",
-      "typeVersion": "2.0",
-      "relationshipCategory": "COMPOSITION",
-      "relationshipLabel": "_hive_column.hive_column_partition",
-      "endDef1": {
-        "type": "hive_column",
-        "name": "partitions",
-        "isContainer": true,
-        "cardinality": "SET",
-        "isLegacyAttribute": true
-      },
-      "endDef2": {
-        "type": "hive_column_partition",
-        "name": "column",
-        "isContainer": false,
-        "cardinality": "SINGLE",
-        "isLegacyAttribute": true
-      },
-      "propagateTags": "NONE"
     }
   ]
 }
