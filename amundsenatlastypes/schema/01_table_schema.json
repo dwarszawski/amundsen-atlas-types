@@ -14,6 +14,15 @@
           "isUnique": false,
           "isIndexable": true,
           "defaultValue": "0.0"
+        },
+        {
+          "name": "readers",
+          "typeName": "array<Reader>",
+          "isOptional": true,
+          "cardinality": "LIST",
+          "isUnique": false,
+          "isIndexable": true,
+          "includeInNotification": false
         }
       ]
     }

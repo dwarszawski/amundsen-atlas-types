@@ -75,12 +75,6 @@ class Initializer:
     def create_user_reader_relation(self):
         self.create_or_update(self.get_schema_dict(user_reader_relation), "User <-> Reader")
 
-    def create_metadata_schema(self):
-        self.create_or_update(self.get_schema_dict(metadata_schema), "Metadata")
-
-    def create_reader_metadata_relation(self):
-        self.create_or_update(self.get_schema_dict(reader_metadata_relation), "Reader <-> Metadata")
-
     def create_table_partition_schema(self):
         self.create_or_update(self.get_schema_dict(table_partition_schema), "Partition")
 
@@ -103,8 +97,6 @@ class Initializer:
         self.create_user_schema()
         self.create_reader_schema()
         self.create_user_reader_relation()
-        self.create_metadata_schema()
-        self.create_reader_metadata_relation()
         self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_column_partition_schema()
