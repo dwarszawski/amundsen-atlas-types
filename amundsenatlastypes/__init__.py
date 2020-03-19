@@ -81,9 +81,6 @@ class Initializer:
     def create_hive_table_partition(self):
         self.create_or_update(self.get_schema_dict(hive_table_partition), "Hive Table Partition")
 
-    def create_hive_column_partition(self):
-        self.create_or_update(self.get_schema_dict(column_partition_schema), "Hive Column Partition")
-
     def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
@@ -99,4 +96,3 @@ class Initializer:
         self.create_user_reader_relation()
         self.create_table_partition_schema()
         self.create_hive_table_partition()
-        self.create_hive_column_partition()
