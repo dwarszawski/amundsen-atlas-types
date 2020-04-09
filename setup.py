@@ -5,6 +5,9 @@ import sys
 
 from setuptools import setup, find_packages
 
+
+EXTRAS_REQUIREMENTS = ['dev']
+
 here = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, here)
 
@@ -12,9 +15,19 @@ with open(os.path.join(here, 'README.md')) as readme_file:
     readme = readme_file.read()
 
 
-requirements_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'requirements.txt')
-with open(requirements_path) as requirements_file:
-    requirements = requirements_file.readlines()
+def read_requirements(requirements_group=None):
+    if requirements_group:
+        file = f'requirements-{requirements_group}.txt'
+    else:
+        file = 'requirements.txt'
+
+    requirements_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), file)
+
+    with open(requirements_path) as requirements_file:
+        requirements = requirements_file.readlines()
+
+    return requirements
+
 
 setup_args = dict(
     name='amundsenatlastypes',
@@ -28,7 +41,8 @@ setup_args = dict(
     url='https://github.com/dwarszawski/amundsen-atlas-types',
     packages=find_packages(include=['amundsenatlastypes']),
     include_package_data=True,
-    install_requires=requirements,
+    install_requires=read_requirements(),
+    extras_require={t: read_requirements(t) for t in EXTRAS_REQUIREMENTS},
     license='Apache Software License 2.0',
     zip_safe=False,
     keywords='apache atlas, atlas types, amundsen, amundsen atlas',
