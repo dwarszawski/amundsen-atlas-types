@@ -1,22 +1,22 @@
 import json
+import re
 
 # noinspection PyPackageRequirements
 from atlasclient.exceptions import Conflict
 from requests import Timeout
 
 from amundsenatlastypes.client import driver
-from .kickstart import KickstartExistingData
 from .types_def import *
 
 
 # noinspection PyMethodMayBeStatic
 class Initializer:
-    def assign_subtypes(self, ends_with="_table", super_type="Table"):
-        print(f'\nAssigning {super_type} entity to all the subtypes entity definitions')
+    def assign_subtypes(self, regex, super_type):
+        print(f'\nAssigning {super_type} entity to all the subtypes entity definitions with postfix ')
         entities_to_update = []
         for t in driver.typedefs:
             for e in t.entityDefs:
-                if e.name.endswith(ends_with):  # Assign new entity to all the tables in atlas
+                if re.compile(regex).match(e.name) is not None:
                     print(f'Assigning {e.name} as a subtype of {super_type}')
                     super_types = e.superTypes  # Get a property first to inflate the relational objects
                     ent_dict = e._data
@@ -28,7 +28,7 @@ class Initializer:
             "entityDefs": entities_to_update
         }
         driver.typedefs.update(data=typedef_dict)
-        print(f'Assignment of "{super_type}" Entity to existing "{ends_with}" entities Completed.\n')
+        print(f'Assignment of "{super_type}" Entity to existing "{regex}" entities Completed.\n')
 
     def create_or_update(self, typedef_dict, info, attempt=1):
         try:
@@ -75,26 +75,11 @@ class Initializer:
     def create_user_reader_relation(self):
         self.create_or_update(self.get_schema_dict(user_reader_relation), "User <-> Reader")
 
-    def create_metadata_schema(self):
-        self.create_or_update(self.get_schema_dict(metadata_schema), "Metadata")
-
-    def create_reader_metadata_relation(self):
-        self.create_or_update(self.get_schema_dict(reader_metadata_relation), "Reader <-> Metadata")
-
-    def create_table_metadata_schema(self):
-        self.create_or_update(self.get_schema_dict(table_metadata_schema), "Table Metadata")
-
-    def create_column_metadata_schema(self):
-        self.create_or_update(self.get_schema_dict(column_metadata_schema), "Column Metadata")
-
     def create_table_partition_schema(self):
         self.create_or_update(self.get_schema_dict(table_partition_schema), "Partition")
 
     def create_hive_table_partition(self):
         self.create_or_update(self.get_schema_dict(hive_table_partition), "Hive Table Partition")
-
-    def create_partition_column_metadata(self):
-        self.create_or_update(self.get_schema_dict(partition_column_metadata), "Partition Column Metadata")
 
     def create_required_entities(self, fix_existing_data=False):
         """
@@ -102,23 +87,12 @@ class Initializer:
         Please keep this order.
         :return: Creates or Updates the entity definition in Apache Atlas
         """
-        self.create_table_schema()
-        self.assign_subtypes(ends_with="_table", super_type="Table")
         self.create_column_schema()
-        self.assign_subtypes(ends_with="_column", super_type="Column")
-        self.create_user_schema()
         self.create_reader_schema()
+        self.create_table_schema()
+        self.assign_subtypes(regex="(.*)_table$", super_type="Table")
+        self.assign_subtypes(regex="(.*)_column$", super_type="Column")
+        self.create_user_schema()
         self.create_user_reader_relation()
-        self.create_metadata_schema()
-        self.create_reader_metadata_relation()
-        self.create_table_metadata_schema()
-        self.create_column_metadata_schema()
         self.create_table_partition_schema()
         self.create_hive_table_partition()
-        self.create_partition_column_metadata()
-
-        if fix_existing_data:
-
-            # noinspection PyShadowingNames,SpellCheckingInspection
-            kickstart = KickstartExistingData()
-            kickstart.initiate_existing_data()
