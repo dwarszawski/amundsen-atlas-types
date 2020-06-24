@@ -2,9 +2,9 @@
   "entityDefs": [
     {
       "superTypes": [
-        "DataSet"
+        "Referenceable"
       ],
-      "name": "TableReport",
+      "name": "Report",
       "description": "External data reports ( url's) associated with table",
       "typeVersion": "2.0",
       "attributeDefs": [
@@ -33,20 +33,20 @@
   ],
   "relationshipDefs": [
     {
-      "name": "Table__TableReport",
+      "name": "Referenceable__Report",
       "typeVersion": "2.0",
-      "relationshipCategory": "ASSOCIATION",
-      "relationshipLabel": "_Table.TableReport",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "_Referenceable.Report",
       "endDef1": {
-        "type": "Table",
+        "type": "Referenceable",
         "name": "reports",
         "isContainer": true,
         "cardinality": "SET",
         "isLegacyAttribute": true
       },
       "endDef2": {
-        "type": "TableReport",
-        "name": "table",
+        "type": "Report",
+        "name": "reportedEntity",
         "isContainer": false,
         "cardinality": "SINGLE",
         "isLegacyAttribute": true

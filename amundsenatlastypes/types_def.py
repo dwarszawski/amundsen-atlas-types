@@ -7,7 +7,7 @@ def get_schema(schema):
 
 table_schema = get_schema("schema/01_2_table_schema.json")
 bookmark_schema = get_schema("schema/01_3_bookmark.json")
-table_report_schema = get_schema("schema/01_4_table_report.json")
+report_schema = get_schema("schema/01_4_report.json")
 column_schema = get_schema("schema/01_column_schema.json")
 user_schema = get_schema("schema/02_user.json")
 reader_schema = get_schema("schema/01_1_reader.json")
