@@ -5,7 +5,7 @@
         "Referenceable"
       ],
       "name": "Report",
-      "description": "External data reports ( url's) associated with table",
+      "description": "External data report (url)",
       "typeVersion": "2.0",
       "attributeDefs": [
 				{
