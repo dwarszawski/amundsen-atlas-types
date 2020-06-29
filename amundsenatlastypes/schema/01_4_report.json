@@ -46,7 +46,7 @@
       },
       "endDef2": {
         "type": "Report",
-        "name": "reportedEntity",
+        "name": "entity",
         "isContainer": false,
         "cardinality": "SINGLE",
         "isLegacyAttribute": true
