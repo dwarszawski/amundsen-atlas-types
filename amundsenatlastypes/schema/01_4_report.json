@@ -8,7 +8,7 @@
       "description": "External data report (url)",
       "typeVersion": "2.0",
       "attributeDefs": [
-				{
+        {
           "name": "name",
           "typeName": "string",
           "isOptional": false,
