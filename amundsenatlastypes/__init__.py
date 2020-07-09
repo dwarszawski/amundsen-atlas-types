@@ -76,7 +76,7 @@ class Initializer:
         self.create_or_update(self.get_schema_dict(bookmark_schema), "Bookmark")
 
     def create_report_schema(self):
-        self.create_or_update(self.get_schema_dict(bookmark_schema), "Report")
+        self.create_or_update(self.get_schema_dict(report_schema), "Report")
 
     def create_user_reader_relation(self):
         self.create_or_update(self.get_schema_dict(user_reader_relation), "User <-> Reader")
