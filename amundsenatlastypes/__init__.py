@@ -75,6 +75,9 @@ class Initializer:
     def create_bookmark_schema(self):
         self.create_or_update(self.get_schema_dict(bookmark_schema), "Bookmark")
 
+    def create_report_schema(self):
+        self.create_or_update(self.get_schema_dict(report_schema), "Report")
+
     def create_user_reader_relation(self):
         self.create_or_update(self.get_schema_dict(user_reader_relation), "User <-> Reader")
 
@@ -94,6 +97,7 @@ class Initializer:
         self.create_reader_schema()
         self.create_user_schema()
         self.create_bookmark_schema()
+        self.create_report_schema()
         self.create_table_schema()
         self.assign_subtypes(regex="(.*)_table$", super_type="Table")
         self.assign_subtypes(regex="(.*)_column$", super_type="Column")
