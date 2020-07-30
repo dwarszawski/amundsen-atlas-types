@@ -14,7 +14,7 @@
       },
       "endDef2": {
         "type": "User",
-        "name": "ownerOf",
+        "name": "owns",
         "isContainer": false,
         "cardinality": "SET",
         "isOptional": true
