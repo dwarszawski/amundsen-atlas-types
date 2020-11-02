@@ -81,6 +81,9 @@ class Initializer:
     def create_user_reader_relation(self):
         self.create_or_update(self.get_schema_dict(user_reader_relation), "User <-> Reader")
 
+    def create_reader_referenceable_relation(self):
+        self.create_or_update(self.get_schema_dict(reader_referenceable_relation), "Reader <-> Referenceable")
+
     def create_table_partition_schema(self):
         self.create_or_update(self.get_schema_dict(table_partition_schema), "Partition")
 
@@ -105,6 +108,7 @@ class Initializer:
         self.assign_subtypes(regex="(.*)_table$", super_type="Table")
         self.assign_subtypes(regex="(.*)_column$", super_type="Column")
         self.create_user_reader_relation()
+        self.create_reader_referenceable_relation()
         self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_data_owner_relation()
