@@ -26,7 +26,7 @@ class SampleDashboardData:
         self.initializer.create_dashboard_execution_schema()
 
     def create(self):
-        # self._initialize()
+        self._initialize()
 
         dashboard_group_guid = '-1'
         dashboard_group_dict = {
