@@ -8,7 +8,7 @@ class AtlasClient:
     port = os.environ.get('ATLAS_PORT', 21000)
     user = os.environ.get('ATLAS_USERNAME', 'admin')
     password = os.environ.get('ATLAS_PASSWORD', 'admin')
-    timeout = os.environ.get('ATLAS_REQUEST_TIMEOUT', 10)
+    timeout = os.environ.get('ATLAS_REQUEST_TIMEOUT', 60)
 
     def driver(self):
         return Atlas(host=self.host,

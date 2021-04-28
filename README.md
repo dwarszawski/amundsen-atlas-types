@@ -58,5 +58,23 @@ implement/apply entity definitions of Apache Atlas, which are available [here](/
 You can also simply access the individual entity definitions in JSON format by importing them 
 from [here](amundsenatlastypes/types.py).  
 
+#### Sample Data
+
+`amundsenatlastypes` provides sample data so you can populate your Atlas not only with entity definitions but also
+concrete entities.
+
+##### Dashboard Sample Data
+
+```python
+from amundsenatlastypes.schema.dashboard.sample_data import SampleDashboardData
+
+# Fill below variables with appropriate values
+table_guid = ''
+user_guid = ''
+
+loader = SampleDashboardData(table_guid, user_guid)
+
+loader.create()
+```
 
 
