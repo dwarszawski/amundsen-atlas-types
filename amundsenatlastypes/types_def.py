@@ -16,3 +16,4 @@ reader_referenceable_relation = get_schema("schema/04_reader_referenceable_relat
 table_partition_schema = get_schema("schema/05_table_partition_schema.json")
 hive_table_partition = get_schema("schema/05_1_hive_table_partition.json")
 data_owner_schema = get_schema("schema/06_user_table_owner_relation.json")
+metabase_entities_schema = get_schema("schema/0000-metabase/0001-metabase-v0.json")

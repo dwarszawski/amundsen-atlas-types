@@ -1,0 +1,310 @@
+{
+  "enumDefs": [],
+  "structDefs": [],
+  "classificationDefs": [],
+  "entityDefs": [
+    {
+      "superTypes": [
+        "DataSet"
+      ],
+      "name": "metabase_entity",
+      "description": "Base metabase entity",
+      "serviceType": "metabase",
+      "attributeDefs": [
+        {
+          "name": "id",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "url",
+          "isOptional": false,
+          "isUnique": false,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ]
+    },
+    {
+      "superTypes": [
+        "metabase_entity"
+      ],
+      "name": "metabase_collection",
+      "description": "Metabase collection",
+      "serviceType": "metabase",
+      "attributeDefs": []
+    },
+    {
+      "superTypes": [
+        "Process"
+      ],
+      "name": "metabase_process",
+      "description": "MB process",
+      "serviceType": "metabase",
+      "attributeDefs": [
+        {
+          "name": "lineageType",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ]
+    },
+    {
+      "superTypes": [
+        "metabase_entity"
+      ],
+      "name": "metabase_question",
+      "description": "Question",
+      "serviceType": "metabase",
+      "attributeDefs": [
+        {
+          "name": "result_metadata",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": false,
+          "typeName": "array<map<string,string>>"
+        },
+        {
+          "name": "dataset_query",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": false,
+          "typeName": "map<string,string>"
+        },
+        {
+          "name": "native_query",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": false,
+          "typeName": "string"
+        }
+      ]
+    },
+    {
+      "superTypes": [
+        "metabase_entity"
+      ],
+      "name": "metabase_dashboard",
+      "description": "Dashboard",
+      "serviceType": "metabase",
+      "attributeDefs": []
+    },
+    {
+      "superTypes": [
+        "Referenceable"
+      ],
+      "name": "metabase_user_group",
+      "description": "Metabase user group",
+      "serviceType": "metabase",
+      "attributeDefs": [
+        {
+          "name": "id",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "name",
+          "isOptional": true,
+          "isUnique": false,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "url",
+          "isOptional": false,
+          "isUnique": false,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ]
+    }
+  ],
+  "relationshipDefs": [
+    {
+      "name": "metabase_group__collection",
+      "serviceType": "metabase",
+      "typeVersion": "1.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "__mb_group.read_collections",
+      "endDef1": {
+        "type": "metabase_user_group",
+        "name": "read_collections",
+        "isContainer": true,
+        "cardinality": "SET"
+      },
+      "endDef2": {
+        "type": "metabase_collection",
+        "name": "reader_groups",
+        "isContainer": false,
+        "cardinality": "SET"
+      },
+      "attributeDefs": [
+        {
+          "name": "metabase_user_group_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "metabase_collection_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ],
+      "propagateTags": "NONE"
+    },
+    {
+      "name": "metabase_group__users",
+      "serviceType": "metabase",
+      "typeVersion": "1.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "__mb_group.users",
+      "endDef1": {
+        "type": "metabase_user_group",
+        "name": "users",
+        "isContainer": true,
+        "cardinality": "SET"
+      },
+      "endDef2": {
+        "type": "User",
+        "name": "metabase_groups",
+        "isContainer": false,
+        "cardinality": "SET"
+      },
+      "attributeDefs": [
+        {
+          "name": "metabase_user_group_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "User_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ],
+      "propagateTags": "NONE"
+    },
+    {
+      "name": "metabase_collection_children",
+      "serviceType": "metabase",
+      "typeVersion": "1.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "__mb_collection.items",
+      "endDef1": {
+        "type": "metabase_collection",
+        "name": "items",
+        "isContainer": true,
+        "cardinality": "SET"
+      },
+      "endDef2": {
+        "type": "metabase_entity",
+        "name": "parent_collection",
+        "isContainer": false,
+        "cardinality": "SINGLE"
+      },
+      "attributeDefs": [
+        {
+          "name": "metabase_collection_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "metabase_entity_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ],
+      "propagateTags": "NONE"
+    },
+    {
+      "name": "metabase_dashboard__question",
+      "serviceType": "metabase",
+      "typeVersion": "1.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "__mb_dashboard.questions",
+      "endDef1": {
+        "type": "metabase_dashboard",
+        "name": "questions",
+        "isContainer": true,
+        "cardinality": "SET"
+      },
+      "endDef2": {
+        "type": "metabase_question",
+        "name": "dashboards",
+        "isContainer": false,
+        "cardinality": "SET"
+      },
+      "attributeDefs": [
+        {
+          "name": "metabase_dashboard_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "metabase_question_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ],
+      "propagateTags": "ONE_TO_TWO"
+    },
+    {
+      "name": "metabase_question__table",
+      "serviceType": "metabase",
+      "typeVersion": "1.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "__mb_question.tables",
+      "endDef1": {
+        "type": "metabase_question",
+        "name": "referenced_tables",
+        "isContainer": true,
+        "cardinality": "SET"
+      },
+      "endDef2": {
+        "type": "Table",
+        "name": "used_in_mb_questions",
+        "isContainer": false,
+        "cardinality": "SET"
+      },
+      "attributeDefs": [
+        {
+          "name": "metabase_question_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        },
+        {
+          "name": "Table_qualifiedName",
+          "isOptional": false,
+          "isUnique": true,
+          "isIndexable": true,
+          "typeName": "string"
+        }
+      ],
+      "propagateTags": "NONE"
+    }
+  ]
+}
