@@ -93,7 +93,15 @@ class Initializer:
     def create_data_owner_relation(self):
         self.create_or_update(self.get_schema_dict(data_owner_schema), "Data Owner Relation")
 
-    def create_required_entities(self, fix_existing_data=False):
+    def install_metabase_types(self):
+        self.create_or_update(self.get_schema_dict(metabase_entities_schema),
+                              "Metabase entity types")
+
+    def create_additional_types(self):
+        self.install_metabase_types()
+
+    def create_required_entities(self, fix_existing_data=False,
+        additional_types=False):
         """
         IMPORTANT: The order of the entity definition matters.
         Please keep this order.
@@ -112,3 +120,5 @@ class Initializer:
         self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_data_owner_relation()
+        if additional_types:
+            self.create_additional_types()
