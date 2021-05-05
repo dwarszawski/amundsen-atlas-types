@@ -33,7 +33,7 @@ class SampleDashboardData:
             'guid': dashboard_group_guid,
             'typeName': 'DashboardGroup',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod',
+                'qualifiedName': 'superset_dashboard://datalab.prod',
                 'name': 'prod superset',
                 'id': 'prod',
                 'description': 'Apache Superset Dashboards',
@@ -46,14 +46,14 @@ class SampleDashboardData:
             'guid': dashboard_guid,
             'typeName': 'Dashboard',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1',
                 'name': 'Prod Usage',
                 'url': 'https://prod.superset/dashboards/1',
                 'description': 'Robs famous dashboard',
                 'createdTimestamp': 1619517099,
                 'lastModifiedTimestamp': 1619626531,
                 'cluster': 'datalab',
-                'product': 'apache_superset',
+                'product': 'Superset',
                 'tables': [{'guid': self.table_guid}],
                 'group': {'guid': dashboard_group_guid},
                 'ownedBy': [{'guid': self.user_guid}]
@@ -63,7 +63,7 @@ class SampleDashboardData:
         dashboard_execution_dict = {
             'typeName': 'DashboardExecution',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1/execution/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/execution/1',
                 'state': 'succeeded',
                 'timestamp': 1619517099,
                 'dashboard': {'guid': dashboard_guid}
@@ -75,7 +75,7 @@ class SampleDashboardData:
             'guid': dashboard_chart_guid_1,
             'typeName': 'DashboardChart',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1/chart/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/1',
                 'name': 'Total Count',
                 'type': 'metric',
                 'url': 'https://prod.superset/dashboards/1/chart/1',
@@ -88,7 +88,7 @@ class SampleDashboardData:
             'guid': dashboard_chart_guid_2,
             'typeName': 'DashboardChart',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1/chart/2',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/2',
                 'name': 'Count Users by Time',
                 'type': 'horizontal_bar',
                 'url': 'https://prod.superset/dashboards/1/chart/2',
@@ -99,7 +99,7 @@ class SampleDashboardData:
         dashboard_query_1_dict = {
             'typeName': 'DashboardQuery',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1/chart/1/query/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/1/query/1',
                 'name': 'Total Count',
                 'id': 'total_count',
                 'url': 'https://prod.superset/dashboards/1/chart/1/query/1',
@@ -111,7 +111,7 @@ class SampleDashboardData:
         dashboard_query_2_dict = {
             'typeName': 'DashboardQuery',
             'attributes': {
-                'qualifiedName': 'apache_superset_dashboard://datalab.prod/1/chart/2/query/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/2/query/1',
                 'name': 'User Count By Time',
                 'id': 'user_count_by_time',
                 'url': 'https://prod.superset/dashboards/1/chart/2/query/1',
