@@ -59,7 +59,7 @@
         {
           "name": "product",
           "typeName": "string",
-          "isOptional": true,
+          "isOptional": false,
           "cardinality": "SINGLE",
           "isUnique": false,
           "isIndexable": false
