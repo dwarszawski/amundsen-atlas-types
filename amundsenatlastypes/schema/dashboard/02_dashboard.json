@@ -3,27 +3,12 @@
     {
       "name": "Dashboard",
       "superTypes": [
-        "Referenceable"
+        "Asset"
       ],
+      "serviceType": "amundsen",
       "attributeDefs": [
         {
-          "name": "name",
-          "typeName": "string",
-          "isOptional": false,
-          "cardinality": "SINGLE",
-          "isUnique": false,
-          "isIndexable": false
-        },
-        {
           "name": "url",
-          "typeName": "string",
-          "isOptional": true,
-          "cardinality": "SINGLE",
-          "isUnique": false,
-          "isIndexable": false
-        },
-        {
-          "name": "description",
           "typeName": "string",
           "isOptional": true,
           "cardinality": "SINGLE",

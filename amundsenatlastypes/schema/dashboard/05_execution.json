@@ -5,6 +5,7 @@
       "superTypes": [
         "Referenceable"
       ],
+      "serviceType": "amundsen",
       "attributeDefs": [
         {
           "name": "state",
