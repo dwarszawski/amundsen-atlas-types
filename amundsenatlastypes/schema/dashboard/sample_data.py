@@ -51,9 +51,10 @@ class SampleDashboardData:
                 'url': 'https://prod.superset/dashboards/1',
                 'description': 'Robs famous dashboard',
                 'createdTimestamp': 1619517099,
+                'lastModifiedTimestamp': 1619626531,
                 'cluster': 'datalab',
                 'product': 'apache_superset',
-                'table': {'guid': self.table_guid},
+                'tables': [{'guid': self.table_guid}],
                 'group': {'guid': dashboard_group_guid},
                 'ownedBy': [{'guid': self.user_guid}]
             }
