@@ -1,10 +1,11 @@
 from amundsenatlastypes import Initializer
 from amundsenatlastypes.client import driver
+from amundsenatlastypes.sample_data import SampleData
 
 __all__ = ['SampleDashboardData']
 
 
-class SampleDashboardData:
+class SampleDashboardData(SampleData):
     """
     Class for creating dummy data for dashboard entities.
     """
@@ -25,9 +26,7 @@ class SampleDashboardData:
         self.initializer.create_dashboard_query_schema()
         self.initializer.create_dashboard_execution_schema()
 
-    def create(self):
-        self._initialize()
-
+    def _create(self, *args, **kwargs):
         dashboard_group_guid = '-1'
         dashboard_group_dict = {
             'guid': dashboard_group_guid,
