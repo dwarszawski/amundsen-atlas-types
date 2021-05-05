@@ -52,7 +52,7 @@ class SampleDashboardData(SampleData):
                 'createdTimestamp': 1619517099,
                 'lastModifiedTimestamp': 1619626531,
                 'cluster': 'datalab',
-                'product': 'Superset',
+                'product': 'superset',
                 'tables': [{'guid': self.table_guid}],
                 'group': {'guid': dashboard_group_guid},
                 'ownedBy': [{'guid': self.user_guid}]
