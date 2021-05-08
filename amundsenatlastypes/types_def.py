@@ -16,3 +16,11 @@ reader_referenceable_relation = get_schema("schema/04_reader_referenceable_relat
 table_partition_schema = get_schema("schema/05_table_partition_schema.json")
 hive_table_partition = get_schema("schema/05_1_hive_table_partition.json")
 data_owner_schema = get_schema("schema/06_user_table_owner_relation.json")
+
+# Dashboard definitions ------------------------------------------------------------------------------------------------
+
+dashboard_group_schema = get_schema("schema/dashboard/01_group.json")
+dashboard_schema = get_schema("schema/dashboard/02_dashboard.json")
+dashboard_chart_schema = get_schema("schema/dashboard/03_chart.json")
+dashboard_query_schema = get_schema("schema/dashboard/04_query.json")
+dashboard_execution_schema = get_schema("schema/dashboard/05_execution.json")

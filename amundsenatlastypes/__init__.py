@@ -93,6 +93,21 @@ class Initializer:
     def create_data_owner_relation(self):
         self.create_or_update(self.get_schema_dict(data_owner_schema), "Data Owner Relation")
 
+    def create_dashboard_group_schema(self):
+        self.create_or_update(self.get_schema_dict(dashboard_group_schema), "Dashboard Group")
+
+    def create_dashboard_schema(self):
+        self.create_or_update(self.get_schema_dict(dashboard_schema), "Dashboard")
+
+    def create_dashboard_chart_schema(self):
+        self.create_or_update(self.get_schema_dict(dashboard_chart_schema), "Dashboard Chart")
+
+    def create_dashboard_query_schema(self):
+        self.create_or_update(self.get_schema_dict(dashboard_query_schema), "Dashboard Query")
+
+    def create_dashboard_execution_schema(self):
+        self.create_or_update(self.get_schema_dict(dashboard_execution_schema), "Dashboard Execution")
+
     def create_required_entities(self, fix_existing_data=False):
         """
         IMPORTANT: The order of the entity definition matters.
@@ -112,3 +127,8 @@ class Initializer:
         self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_data_owner_relation()
+        self.create_dashboard_group_schema()
+        self.create_dashboard_schema()
+        self.create_dashboard_chart_schema()
+        self.create_dashboard_query_schema()
+        self.create_dashboard_execution_schema()
