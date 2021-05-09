@@ -5,6 +5,7 @@
         "Referenceable"
       ],
       "name": "User",
+      "serviceType": "amundsen",
       "typeVersion": "2.0",
       "description": "The User Entity. Used to make relationship between users and entities."
     }

@@ -5,6 +5,7 @@
         "Referenceable"
       ],
       "name": "Bookmark",
+      "serviceType": "amundsen",
       "description": "The bookmark entity. Maps user with any entity that he wants to 'subscribe' to. Used in Amundsen bookmarks feature",
       "typeVersion": "2.0",
       "attributeDefs": [
