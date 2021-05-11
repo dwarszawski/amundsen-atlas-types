@@ -22,8 +22,8 @@ class SampleDashboardData(SampleData):
     def _initialize(self):
         self.initializer.create_dashboard_group_schema()
         self.initializer.create_dashboard_schema()
-        self.initializer.create_dashboard_chart_schema()
         self.initializer.create_dashboard_query_schema()
+        self.initializer.create_dashboard_chart_schema()
         self.initializer.create_dashboard_execution_schema()
 
     def _create(self, *args, **kwargs):
@@ -69,59 +69,59 @@ class SampleDashboardData(SampleData):
             }
         }
 
-        dashboard_chart_guid_1 = '-3'
-        dashboard_chart_1_dict = {
-            'guid': dashboard_chart_guid_1,
-            'typeName': 'DashboardChart',
-            'attributes': {
-                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/1',
-                'name': 'Total Count',
-                'type': 'metric',
-                'url': 'https://prod.superset/dashboards/1/chart/1',
-                'dashboard': {'guid': dashboard_guid}
-            }
-        }
-
-        dashboard_chart_guid_2 = '-4'
-        dashboard_chart_2_dict = {
-            'guid': dashboard_chart_guid_2,
-            'typeName': 'DashboardChart',
-            'attributes': {
-                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/2',
-                'name': 'Count Users by Time',
-                'type': 'horizontal_bar',
-                'url': 'https://prod.superset/dashboards/1/chart/2',
-                'dashboard': {'guid': dashboard_guid}
-            }
-        }
-
+        dashboard_query_guid_1 = '-3'
         dashboard_query_1_dict = {
+            'guid': dashboard_query_guid_1,
             'typeName': 'DashboardQuery',
             'attributes': {
-                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/1/query/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/query/1',
                 'name': 'Total Count',
                 'id': 'total_count',
-                'url': 'https://prod.superset/dashboards/1/chart/1/query/1',
+                'url': 'https://prod.superset/dashboards/1/query/1',
                 'queryText': 'SELECT COUNT(1) FROM db.table',
-                'chart': {'guid': dashboard_chart_guid_1}
+                'dashboard': {'guid': dashboard_guid}
             }
         }
 
+        dashboard_query_guid_2 = '-4'
         dashboard_query_2_dict = {
+            'guid': dashboard_query_guid_2,
             'typeName': 'DashboardQuery',
             'attributes': {
-                'qualifiedName': 'superset_dashboard://datalab.prod/1/chart/2/query/1',
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/query/2',
                 'name': 'User Count By Time',
                 'id': 'user_count_by_time',
-                'url': 'https://prod.superset/dashboards/1/chart/2/query/1',
+                'url': 'https://prod.superset/dashboards/1/query/2',
                 'queryText': 'SELECT date, COUNT(1) FROM db.table GROUP BY 1',
-                'chart': {'guid': dashboard_chart_guid_2}
+                'dashboard': {'guid': dashboard_guid}
+            }
+        }
+
+        dashboard_chart_1_dict = {
+            'typeName': 'DashboardChart',
+            'attributes': {
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/query/1/chart/1',
+                'name': 'Total Count',
+                'type': 'metric',
+                'url': 'https://prod.superset/dashboards/1/query/1/chart/1',
+                'query': {'guid': dashboard_query_guid_1}
+            }
+        }
+
+        dashboard_chart_2_dict = {
+            'typeName': 'DashboardChart',
+            'attributes': {
+                'qualifiedName': 'superset_dashboard://datalab.prod/1/query/2/chart/1',
+                'name': 'Count Users by Time',
+                'type': 'horizontal_bar',
+                'url': 'https://prod.superset/dashboards/1/query/2/chart/1',
+                'query': {'guid': dashboard_query_guid_2}
             }
         }
 
         entities = [dashboard_group_dict,
                     dashboard_dict, dashboard_execution_dict,
-                    dashboard_chart_1_dict, dashboard_query_1_dict,
-                    dashboard_chart_2_dict, dashboard_query_2_dict]
+                    dashboard_query_1_dict, dashboard_query_2_dict,
+                    dashboard_chart_1_dict, dashboard_chart_2_dict]
 
         driver.entity_bulk.create(data={'entities': entities})

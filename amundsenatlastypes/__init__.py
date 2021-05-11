@@ -129,6 +129,6 @@ class Initializer:
         self.create_data_owner_relation()
         self.create_dashboard_group_schema()
         self.create_dashboard_schema()
-        self.create_dashboard_chart_schema()
         self.create_dashboard_query_schema()
+        self.create_dashboard_chart_schema()
         self.create_dashboard_execution_schema()
