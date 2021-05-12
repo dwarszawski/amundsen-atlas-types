@@ -5,6 +5,7 @@
         "Referenceable"
       ],
       "name": "Report",
+      "serviceType": "amundsen",
       "description": "External data report (url)",
       "typeVersion": "2.0",
       "attributeDefs": [

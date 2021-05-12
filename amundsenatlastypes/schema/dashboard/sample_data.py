@@ -124,4 +124,4 @@ class SampleDashboardData(SampleData):
                     dashboard_chart_1_dict, dashboard_query_1_dict,
                     dashboard_chart_2_dict, dashboard_query_2_dict]
 
-        driver.entity_bulk.create(data={"entities": entities})
+        driver.entity_bulk.create(data={'entities': entities})

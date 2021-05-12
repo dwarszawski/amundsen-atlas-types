@@ -1,4 +1,4 @@
-__version__ = '1.1.4'
+__version__ = '1.2.0'
 
 import os
 import sys
@@ -11,24 +11,33 @@ sys.path.insert(0, here)
 with open(os.path.join(here, 'README.md')) as readme_file:
     readme = readme_file.read()
 
-
 requirements_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'requirements.txt')
+
 with open(requirements_path) as requirements_file:
     requirements = requirements_file.readlines()
+
+requirements_dev_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'requirements-dev.txt')
+
+with open(requirements_dev_path) as requirements_file:
+    requirements_dev = requirements_file.readlines()
 
 setup_args = dict(
     name='amundsenatlastypes',
     version=__version__,
     description=('Custom Amundsen Atlas data types definition'),
     long_description=readme,
-    long_description_content_type="text/markdown",
-    author="Damian Warszawski",
-    maintainer="Verdan Mahmood",
-    maintainer_email='verdan.mahmood@gmail.com',
+    long_description_content_type='text/markdown',
+    author='Damian Warszawski',
+    maintainer='Mariusz Górski',
+    maintainer_email='gorskimariusz13@gmail.com',
     url='https://github.com/dwarszawski/amundsen-atlas-types',
     packages=find_packages(include=['amundsenatlastypes']),
     include_package_data=True,
     install_requires=requirements,
+    extras_require={
+        'dev': requirements_dev,
+        'samples': ['faker']
+    },
     license='Apache Software License 2.0',
     zip_safe=False,
     keywords='apache atlas, atlas types, amundsen, amundsen atlas',
@@ -37,13 +46,12 @@ setup_args = dict(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ]
 )
-
 
 setup(**setup_args)

@@ -49,19 +49,23 @@ init = Initializer()
 init.create_required_entities(fix_existing_data=True)
 ```
 
-
-#### Functionality:
-`amundsenatlastypes` provides a number of functions that can be used separately to 
-implement/apply entity definitions of Apache Atlas, which are available [here](/amundsenatlastypes/__init__.py).
-
-
-You can also simply access the individual entity definitions in JSON format by importing them 
-from [here](amundsenatlastypes/types.py).  
-
 #### Sample Data
 
 `amundsenatlastypes` provides sample data so you can populate your Atlas not only with entity definitions but also
 concrete entities.
+
+##### Prerequisites
+```shell script
+pip install amundsenatlastypes[samples]
+```
+
+##### Table Sample Data
+```python
+from amundsenatlastypes.schema.table.sample_data import SampleTableData
+
+table_loader = SampleTableData()
+table_loader.create()
+```
 
 ##### Dashboard Sample Data
 
@@ -77,4 +81,15 @@ loader = SampleDashboardData(table_guid, user_guid)
 loader.create()
 ```
 
+#### Functionality:
+`amundsenatlastypes` provides a number of functions that can be used separately to 
+implement/apply entity definitions of Apache Atlas, which are available [here](/amundsenatlastypes/__init__.py).
 
+
+You can also simply access the individual entity definitions in JSON format by importing them 
+from [here](amundsenatlastypes/types.py).  
+
+#### Sample Data
+
+`amundsenatlastypes` provides sample data so you can populate your Atlas not only with entity definitions but also
+concrete entities.

@@ -5,6 +5,7 @@
         "Referenceable"
       ],
       "name": "Reader",
+      "serviceType": "amundsen",
       "description": "The entity reader count. Maps user with the count",
       "typeVersion": "2.0",
       "attributeDefs": [
