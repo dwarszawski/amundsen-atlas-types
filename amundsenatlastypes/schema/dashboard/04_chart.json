@@ -1,14 +1,14 @@
 {
   "entityDefs": [
     {
-      "name": "DashboardQuery",
+      "name": "DashboardChart",
       "superTypes": [
         "Asset"
       ],
       "serviceType": "amundsen",
       "attributeDefs": [
         {
-          "name": "id",
+          "name": "type",
           "typeName": "string",
           "isOptional": false,
           "cardinality": "SINGLE",
@@ -26,36 +26,26 @@
           "valuesMaxCount": 1,
           "isUnique": false,
           "isIndexable": true
-        },
-        {
-          "name": "queryText",
-          "typeName": "string",
-          "isOptional": true,
-          "cardinality": "SINGLE",
-          "valuesMinCount": 1,
-          "valuesMaxCount": 1,
-          "isUnique": false,
-          "isIndexable": false
         }
       ]
     }
   ],
   "relationshipDefs": [
     {
-      "name": "DashboardChart__DashboardQuery",
+      "name": "DashboardQuery__DashboardChart",
       "typeVersion": "2.0",
       "relationshipCategory": "COMPOSITION",
-      "relationshipLabel": "_DashboardChart.DashboardQuery",
+      "relationshipLabel": "_DashboardQuery.DashboardChart",
       "endDef1": {
-        "type": "DashboardChart",
-        "name": "queries",
+        "type": "DashboardQuery",
+        "name": "charts",
         "isContainer": true,
         "cardinality": "SET",
         "isLegacyAttribute": true
       },
       "endDef2": {
-        "type": "DashboardQuery",
-        "name": "chart",
+        "type": "DashboardChart",
+        "name": "query",
         "isContainer": false,
         "cardinality": "SINGLE",
         "isLegacyAttribute": true

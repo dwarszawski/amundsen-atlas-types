@@ -21,6 +21,6 @@ data_owner_schema = get_schema("schema/06_user_table_owner_relation.json")
 
 dashboard_group_schema = get_schema("schema/dashboard/01_group.json")
 dashboard_schema = get_schema("schema/dashboard/02_dashboard.json")
-dashboard_chart_schema = get_schema("schema/dashboard/03_chart.json")
-dashboard_query_schema = get_schema("schema/dashboard/04_query.json")
+dashboard_query_schema = get_schema("schema/dashboard/03_query.json")
+dashboard_chart_schema = get_schema("schema/dashboard/04_chart.json")
 dashboard_execution_schema = get_schema("schema/dashboard/05_execution.json")
