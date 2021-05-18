@@ -34,7 +34,7 @@
     {
       "name": "Dashboard__DashboardExecution",
       "typeVersion": "2.0",
-      "relationshipCategory": "COMPOSITION",
+      "relationshipCategory": "AGGREGATION",
       "relationshipLabel": "_Dashboard.DashboardExecution",
       "endDef1": {
         "type": "Dashboard",
