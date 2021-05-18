@@ -44,7 +44,7 @@
     {
       "name": "Dashboard__DashboardQuery",
       "typeVersion": "2.0",
-      "relationshipCategory": "COMPOSITION",
+      "relationshipCategory": "AGGREGATION",
       "relationshipLabel": "_Dashboard.DashboardQuery",
       "endDef1": {
         "type": "Dashboard",

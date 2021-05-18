@@ -65,7 +65,7 @@
     {
       "name": "DashboardGroup__Dashboard",
       "typeVersion": "2.0",
-      "relationshipCategory": "COMPOSITION",
+      "relationshipCategory": "AGGREGATION",
       "relationshipLabel": "_DashboardGroup.Dashboard",
       "endDef1": {
         "type": "DashboardGroup",
