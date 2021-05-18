@@ -34,7 +34,7 @@
     {
       "name": "DashboardQuery__DashboardChart",
       "typeVersion": "2.0",
-      "relationshipCategory": "AGGREGATION",
+      "relationshipCategory": "COMPOSITION",
       "relationshipLabel": "_DashboardQuery.DashboardChart",
       "endDef1": {
         "type": "DashboardQuery",
