@@ -123,6 +123,9 @@ class Initializer:
     def create_table_source_relation(self):
         self.create_or_update(self.get_schema_dict(table_source_relation), "Table <-> Source")
 
+    def create_lineage_schema(self):
+        self.create_or_update(self.get_schema_dict(lineage_schema), "LineageProcess")
+
     def create_dashboard_group_schema(self):
         self.create_or_update(self.get_schema_dict(dashboard_group_schema), "Dashboard Group")
 
@@ -163,6 +166,7 @@ class Initializer:
         self.create_source_schema()
         self.create_table_source_relation()
         self.create_application_schema()
+        self.create_lineage_schema()
         self.assign_subtypes(regex="(.*)_table$", super_type="Table")
         self.assign_subtypes(regex="(.*)_column$", super_type="Column")
         self.create_user_reader_relation()
