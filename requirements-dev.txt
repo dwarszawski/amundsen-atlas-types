@@ -1,2 +1,4 @@
 mypy
 flake8
+types-pkg_resources
+types-requests
