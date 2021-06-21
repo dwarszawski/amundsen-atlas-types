@@ -93,6 +93,12 @@ class Initializer:
     def create_data_owner_relation(self):
         self.create_or_update(self.get_schema_dict(data_owner_schema), "Data Owner Relation")
 
+    def create_notice_severity_schema(self):
+        self.create_or_update(self.get_schema_dict(notice_severity_schema), "Notice Severity")
+
+    def create_notice_schema(self):
+        self.create_or_update(self.get_schema_dict(notice_schema), "Notice")
+
     def create_dashboard_group_schema(self):
         self.create_or_update(self.get_schema_dict(dashboard_group_schema), "Dashboard Group")
 
@@ -127,6 +133,8 @@ class Initializer:
         self.create_table_partition_schema()
         self.create_hive_table_partition()
         self.create_data_owner_relation()
+        self.create_notice_severity_schema()
+        self.create_notice_schema()
         self.create_dashboard_group_schema()
         self.create_dashboard_schema()
         self.create_dashboard_query_schema()

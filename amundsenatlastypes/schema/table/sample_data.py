@@ -214,6 +214,35 @@ class SampleTableData(SampleData):
 
         return [report_ap, report_dq]
 
+    def _render_notices(self, table_guid, qn_prefix):
+        qn = f'{qn_prefix}.alertNotice@{self.cluster}'
+
+        alert = {'typeName': 'Notice',
+                "uniqueAttributes": {
+                    "qualifiedName": qn
+                    },
+                'attributes': {'qualifiedName': qn,
+                    'severity': 'alert',
+                    'messageHtml': 'Alert Notice',
+                    'entity': {'guid': str(table_guid)}
+                    }
+                }
+
+        qn = f'{qn_prefix}.infoNotice@{self.cluster}'
+
+        info = {'typeName': 'Notice',
+                "uniqueAttributes": {
+                    "qualifiedName": qn
+                    },
+                'attributes': {'qualifiedName': qn,
+                    'severity': 'info',
+                    'messageHtml': 'Info Notice',
+                    'entity': {'guid': str(table_guid)}
+                    }
+                }
+
+        return [info, alert]
+
     def _render_hive_partitions(
             self, database_name, table_name, table_guid, partitions
     ):
@@ -299,6 +328,9 @@ class SampleTableData(SampleData):
                 bulk_entities.extend(
                     self._render_reports(table_guid, f'{database_name}.{table_name}')
                 )
+                bulk_entities.extend(
+                    self._render_notices(table_guid, f'{database_name}.{table_name}')
+                )
                 bulk_entities.extend(reader_entities)
                 result.append((table_qn, table_guid))
 
@@ -364,6 +396,8 @@ class SampleTableData(SampleData):
         self.initializer.create_table_partition_schema()
         self.initializer.create_hive_table_partition()
         self.initializer.create_data_owner_relation()
+        self.initializer.create_notice_severity_schema()
+        self.initializer.create_notice_schema()
 
     def _create(self, *args, **kwargs):
         logging.info('Loading Sample Users')
