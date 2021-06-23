@@ -1,3 +1,33 @@
+# ⚠️ DEPRECATED
+
+This project has been deprecated and it's contents were migrated to [Amundsen core repo.](https://github.com/amundsen-io/amundsen/blob/main/databuilder/README.md#register-entity-types-using-standalone-script)
+
+**Any new developments on entity types required for Amundsen <> Atlas integration will be continued in aforementioned repository.**
+
+## How can I use this after migration?
+
+### Install databuilder
+
+```shell script
+pip3 install amundsen-databuilder
+```
+
+### Kickstart Amundsen
+
+```python
+from apache_atlas.client.base_client import AtlasClient
+
+from databuilder.types.atlas import AtlasEntityInitializer
+
+client = AtlasClient('http://localhost:21000', ('admin', 'admin'))
+
+init = AtlasEntityInitializer(client)
+
+init.create_required_entities()
+```
+
+---
+
 # Amundsen Atlas Types
 [![PyPI version](https://badge.fury.io/py/amundsenatlastypes.svg)](https://badge.fury.io/py/amundsenatlastypes)
 [![Build Status](https://api.travis-ci.org/dwarszawski/amundsen-atlas-types.svg?branch=master)](https://travis-ci.org/dwarszawski/amundsen-atlas-types)
