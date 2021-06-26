@@ -16,6 +16,8 @@ reader_referenceable_relation = get_schema("schema/04_reader_referenceable_relat
 table_partition_schema = get_schema("schema/05_table_partition_schema.json")
 hive_table_partition = get_schema("schema/05_1_hive_table_partition.json")
 data_owner_schema = get_schema("schema/06_user_table_owner_relation.json")
+notice_severity_schema = get_schema("schema/07_1_notice_severity.json")
+notice_schema = get_schema("schema/07_2_notice.json")
 
 # Dashboard definitions ------------------------------------------------------------------------------------------------
 

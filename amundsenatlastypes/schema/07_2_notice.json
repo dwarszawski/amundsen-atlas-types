@@ -1,0 +1,57 @@
+{
+  "entityDefs": [
+    {
+      "superTypes": [
+        "Referenceable"
+      ],
+      "name": "Notice",
+      "description": "Amundsen notice information",
+      "typeVersion": "2.0",
+      "attributeDefs": [
+        {
+          "name": "severity",
+          "typeName": "string",
+          "isOptional": false,
+          "cardinality": "SINGLE",
+          "valuesMinCount": 1,
+          "valuesMaxCount": 1,
+          "isUnique": false,
+          "isIndexable": false
+        },
+        {
+          "name": "messageHtml",
+          "typeName": "string",
+          "isOptional": false,
+          "cardinality": "SINGLE",
+          "valuesMinCount": 1,
+          "valuesMaxCount": 1,
+          "isUnique": false,
+          "isIndexable": false
+        }
+      ]
+    }
+  ],
+  "relationshipDefs": [
+    {
+      "name": "Referenceable__Notice",
+      "typeVersion": "2.0",
+      "relationshipCategory": "AGGREGATION",
+      "relationshipLabel": "_Referenceable.Notice",
+      "endDef1": {
+        "type": "Referenceable",
+        "name": "notices",
+        "isContainer": true,
+        "cardinality": "SET",
+        "isLegacyAttribute": true
+      },
+      "endDef2": {
+        "type": "Notice",
+        "name": "entity",
+        "isContainer": false,
+        "cardinality": "SINGLE",
+        "isLegacyAttribute": true
+      },
+      "propagateTags": "NONE"
+    }
+  ]
+}

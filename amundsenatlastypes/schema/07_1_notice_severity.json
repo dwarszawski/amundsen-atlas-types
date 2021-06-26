@@ -1,0 +1,23 @@
+{
+  "enumDefs": [
+    {
+      "name": "NoticeSeverity",
+      "description": "Amundsen notice severity",
+      "typeVersion": "2.0",
+      "elementDefs": [
+        {
+          "value": "info",
+          "ordinal": 1
+        },
+        {
+          "value": "warning",
+          "ordinal": 2
+        },
+        {
+          "value": "alert",
+          "ordinal": 3
+        }
+      ]
+    }
+  ]
+}
